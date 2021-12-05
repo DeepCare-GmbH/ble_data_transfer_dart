@@ -14,7 +14,7 @@ Enable transfer of large binary data via BLE.
 ### Receiver
 
 * Store file details in DB
-* Call request for each part. How set needed part? (PB)
+* Call request for each part. How set needed part? As PB. Chunk number + fill with bytes.
 * After getting all parts write to file and calc hash.
 
 
@@ -22,7 +22,8 @@ Enable transfer of large binary data via BLE.
 
 * [Crypto](https://pub.dev/packages/crypto)
 * [SQLite](https://pub.dev/packages/floor)
-
+* [Files](https://docs.flutter.dev/cookbook/persistence/reading-writing-files)
+* [Protobuf](https://developers.google.com/protocol-buffers/docs/darttutorial)
 
 ## TODO
 
