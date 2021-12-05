@@ -26,6 +26,8 @@ Enable transfer of large binary data via BLE.
 
 ## Messages
 
+### Data
+
 MTU 185
 
 Hash:           16bit      
@@ -36,6 +38,19 @@ Chunk number:   32bit
 | Hash         |     2 | Shortend hash |
 | Chunk number |     4 |               |
 | Data         |   179 |               |
+
+### Request
+
+Hash:           16bit      
+Chunk number:   32bit
+
+
+## Data flow
+
+* Sender sends file details to receiver
+* Receiver calls data transfer
+
+If aborted receiver send hash and chunk number to set sender to correct part of the file. Then calls data transfer normal.
 
 ## TODO
 
