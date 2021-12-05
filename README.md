@@ -14,9 +14,8 @@ Enable transfer of large binary data via BLE.
 ### Receiver
 
 * Store file details in DB
-* Call request for each part. How set needed part? As PB. Chunk number + fill with bytes.
+* Call request for each part. How set needed part? As PB. Hash (16bit) + chunk number (32bit) + fill with bytes.
 * After getting all parts write to file and calc hash.
-
 
 ## Libs
 
@@ -25,9 +24,23 @@ Enable transfer of large binary data via BLE.
 * [Files](https://docs.flutter.dev/cookbook/persistence/reading-writing-files)
 * [Protobuf](https://developers.google.com/protocol-buffers/docs/darttutorial)
 
+## Messages
+
+MTU 185
+
+Hash:           16bit      
+Chunk number:   32bit
+
+| Content      | Bytes | Description   |
+|--------------|-------|---------------|
+| Hash         |     2 | Shortend hash |
+| Chunk number |     4 |               |
+| Data         |   179 |               |
+
 ## TODO
 
 * Bundle as dart library
 * Simple test app including lib as sender and receiver
 * Unit tests
+* Security
  
