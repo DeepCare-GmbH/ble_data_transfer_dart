@@ -24,8 +24,8 @@ message StartTransferRequest {
   }
   
 
-// Repley message to a trigger. Limited to 185 Bytes for iOS.
-message StartTransferRepley {
+// Response message to a trigger. Limited to 185 Bytes for iOS.
+message StartTransferResponse {
     string filename = 1;
     bytes hash = 2; // First 8 bytes of a MD5 hash.
     int32 chunks = 3;
