@@ -30,14 +30,43 @@ Enable transfer of large binary data via BLE.
 
 ## Messages
 
-### Start
+### Start Transfer Request
+
+Always send by Master, used for both directions.
+
+| Content      | Bytes | Description                           |
+|--------------|-------|---------------------------------------|
+| Filename     |     x | String array variable length. 100 max |
+| Hash         |     8 | Shortend hash                         |
+| Chunks       |     4 |                                       |
+| Target       |     1 | Enum with target/type                 |
+| Direction    |     1 | Master --> Slave / Slave --> Master   |
+
+Target Enum:
+* Docker image
+* User background image
+* Data
+* Ansible script
+* Bash script
+
+### Start Transfer Repley
+
+Always send by Slave on a start transfer request.
 
 | Content      | Bytes | Description                           |
 |--------------|-------|---------------------------------------|
 | Hash         |     8 | Shortend hash                         |
 | Filename     |     x | String array variable length. 100 max |
-| Chunk amount |     4 |                                       |
+| Chunks       |     4 |                                       |
 | Target       |     1 | Enum with target/type                 |
+| Status       |     1 | Enum with status                      |
+
+Enum:
+* Ready
+* Continue old transfer
+* HDD full
+* Auth failed
+* Error
 
 ### Data
 
@@ -60,10 +89,6 @@ Chunk number:   32bit
 | Chunk number |     4 |               |
 | Enum         |     1 |               |
 
-Enum:
-* Ready
-* Continue
-* HDD full
 
 ### Request
 
