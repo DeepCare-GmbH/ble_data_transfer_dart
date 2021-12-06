@@ -9,7 +9,7 @@ Enable transfer of large binary data via BLE.
 * Select file
 * Calc size and MD5 hash and store in DB?
 + Split file according to MTU between sender and receiver.
-* Send name, number of parts and hash (PB)
+* Send name, number of parts, hash and target via PB
 
 ### Receiver
 
@@ -30,6 +30,15 @@ Enable transfer of large binary data via BLE.
 
 ## Messages
 
+### Start
+
+| Content      | Bytes | Description                           |
+|--------------|-------|---------------------------------------|
+| Hash         |     8 | Shortend hash                         |
+| Filename     |     x | String array variable length. 100 max |
+| Chunk amount |     4 |                                       |
+| Target       |     1 | Enum with target/type                 |
+
 ### Data
 
 MTU 185
@@ -42,6 +51,19 @@ Chunk number:   32bit
 | Hash         |     2 | Shortend hash |
 | Chunk number |     4 |               |
 | Data         |   179 |               |
+
+### Continue
+
+| Content      | Bytes | Description   |
+|--------------|-------|---------------|
+| Hash         |     8 | Shortend hash |
+| Chunk number |     4 |               |
+| Enum         |     1 |               |
+
+Enum:
+* Ready
+* Continue
+* HDD full
 
 ### Request
 
