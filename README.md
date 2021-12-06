@@ -49,7 +49,7 @@ Target Enum:
 * Ansible script
 * Bash script
 
-### Start Transfer Repley
+### Start Transfer Response
 
 Always send by Slave on a start transfer request.
 
