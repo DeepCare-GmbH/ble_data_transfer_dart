@@ -1,9 +1,10 @@
-
+syntax = "proto3";
+package deepcare;
 
 // Message to trigger a data transfer. Limited to 185 Bytes for iOS.
 message StartTransferRequest {
     string filename = 1;
-    repeated bytes hash = 2; // First 8 bytes of a MD5 hash.
+    bytes hash = 2; // First 8 bytes of a MD5 hash.
     int32 chunks = 3;
 
     enum Target {
@@ -26,7 +27,7 @@ message StartTransferRequest {
 // Repley message to a trigger. Limited to 185 Bytes for iOS.
 message StartTransferRepley {
     string filename = 1;
-    repeated bytes hash = 2; // First 8 bytes of a MD5 hash.
+    bytes hash = 2; // First 8 bytes of a MD5 hash.
     int32 chunks = 3;
 
     enum Target {
@@ -43,9 +44,9 @@ message StartTransferRepley {
         READY = 1;
         CONTINUE_OLD = 2; // Old transfer pending, has to be continued.
         FILE_NOT_FOUND = 3;
-        HDD_FULL = 3;
-        AUTH_FAILED = 4;
-        ERROR = 5;
+        HDD_FULL = 4;
+        AUTH_FAILED = 5;
+        ERROR = 6;
     }
 
     Status status = 5;

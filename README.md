@@ -103,6 +103,20 @@ Chunk number:   32bit
 
 If aborted receiver send hash and chunk number to set sender to correct part of the file. Then calls data transfer normal.
 
+
+## Protobuf
+
+``` bash
+# Install:
+sudo snap install protobuf --classic
+
+# Activate dart plugin for protoc:
+dart pub global activate protoc_plugin
+
+# Create dart files:
+protoc -I=./lib/bluetooth_communication/ --dart_out=./lib/bluetooth_communication/   ./lib/bluetooth_communication/stats.proto
+```
+
 ## TODO
 
 * Bundle as dart library
