@@ -24,6 +24,10 @@ Enable transfer of large binary data via BLE.
 * [Files](https://docs.flutter.dev/cookbook/persistence/reading-writing-files)
 * [Protobuf](https://developers.google.com/protocol-buffers/docs/darttutorial)
 
+## Links
+
+[Packaging](https://dart.dev/guides/libraries/create-library-packages)
+
 ## Messages
 
 ### Data
