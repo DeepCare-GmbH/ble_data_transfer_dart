@@ -4,3 +4,7 @@
 class Awesome {
   bool get isAwesome => true;
 }
+
+
+// Sender
+// Größe mit max size vom Header berecnen.

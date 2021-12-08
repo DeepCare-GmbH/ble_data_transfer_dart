@@ -63,7 +63,7 @@ sudo snap install protobuf --classic
 dart pub global activate protoc_plugin
 
 # Create dart files:
-protoc -I=./lib/bluetooth_communication/ --dart_out=./lib/bluetooth_communication/   ./lib/bluetooth_communication/stats.proto
+protoc -I=./proto/ --dart_out=./proto/ ./proto/transfer_data.proto
 ```
 
 ## TODO

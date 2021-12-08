@@ -2,7 +2,7 @@ syntax = "proto3";
 package deepcare;
 
 // Base transfer message
-message TransferRequest {
+message TransferData {
   
   // Header (14 bytes)
   int32 address = 1;
