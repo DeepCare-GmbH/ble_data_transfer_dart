@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ble_data_transfer/ble_data_transfer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -24,13 +25,13 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -42,6 +43,8 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+  final Sender s = Sender();
+
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -58,6 +61,9 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
       _counter++;
+
+      final mesgs = widget.s.sendString(1, '44gfdgdgfdgfdgfdgfkhlkjhlkjhkjnhlkjnhlkjgkjgvhvjthvdtrgecdggd');
+      print('Mesg: $mesgs');
     });
   }
 
