@@ -14,6 +14,7 @@ class IsaDataService {
   late String deviceName; // Device name like "dc00112"
 
   final flutterBlue = FlutterBlue.instance;
+  Sender s = Sender();
 
   DeviceStatistics? deviceStatistics; // Last statistic received via Bluetooth.
   DateTime lastUpdate = DateTime.now(); // Timestamp of last update.
@@ -36,12 +37,10 @@ class IsaDataService {
   IsaDataService() {
     // Bluetooth handler:
     bluetoothDevice = BluetoothDeviceServiceImpl(flutterBlue: flutterBlue);
-
-    deviceName = 'dc00135'; // TODO: Read from GUI!
   }
 
   /// Connect cell phone to ISA.
-  Future<bool> connect() async {
+  Future<bool> connect(deviceName) async {
     connectionOngoing = true;
     try {
       await bluetoothDevice.connectDevice(deviceName);
@@ -55,6 +54,10 @@ class IsaDataService {
       connectionOngoing = false;
       return false;
     }
+  }
+
+  Future<bool> disconnect() async {
+    return await bluetoothDevice.disconnect();
   }
 
   /// Send user name to ISA via Bluetooth.
@@ -96,7 +99,7 @@ class IsaDataService {
         return DeviceStatistics.empty();
       } else {
         debugPrint('Read but not yet connected, try to connect.');
-        await connect();
+        await connect(deviceName);
         // Avoid to fast connection tries:
         await Future.delayed(const Duration(milliseconds: 1000));
       }

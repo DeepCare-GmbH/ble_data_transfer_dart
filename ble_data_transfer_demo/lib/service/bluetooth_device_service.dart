@@ -7,6 +7,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 abstract class BluetoothDeviceService {
   Future<BluetoothDevice> connectDevice(String deviceName);
+  Future<bool> disconnect();
 
   Future<String?> readStringCharacteristic(String serviceUuid, String characteristicUuid);
 
@@ -116,6 +117,18 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
     });
 
     return _completer.future;
+  }
+
+  @override
+  Future<bool> disconnect() async {
+    if (device != null) {
+      device!.disconnect();
+      return true;
+    }
+
+    logger.w('No device connected!');
+    // TODO: Return real error!
+    return Future.value(false);
   }
 
   @override
