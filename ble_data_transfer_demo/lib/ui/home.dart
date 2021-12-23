@@ -87,23 +87,34 @@ class _HomeState extends State<Home> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextField(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              TextField(
                 controller: tcIsaDeviceName,
-                decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'ISA Device Name'),
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  hintText: 'ISA Device Name',
+                  helperText: 'Name of ISA',
+                ),
               ),
-            ),
-            createCommandButton('Connect', connect, connected),
-            createCommandButton('Disconnect', disconnect, connected),
-            createCommandButton('Send short', sendShort, connected),
-            createCommandButton('Send long', null, connected),
-            createCommandButton('Download file', null, connected),
-            createCommandButton('Send file', null, connected),
-          ],
+              const SizedBox(
+                height: 20,
+              ),
+              createCommandButton('Connect', connect, connected),
+              createCommandButton('Disconnect', disconnect, connected),
+              const SizedBox(
+                height: 20,
+              ),
+              createCommandButton('Send short', sendShort, connected),
+              createCommandButton('Send long', null, connected),
+              createCommandButton('Download file', null, connected),
+              createCommandButton('Send file', null, connected),
+            ],
+          ),
         ),
       ),
       // floatingActionButton: FloatingActionButton(
@@ -116,16 +127,16 @@ class _HomeState extends State<Home> {
 
   Widget createCommandButton(String name, Function? f, bool connected) {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: <Color>[
-                  Color(0xFF0D47A1),
-                  Color(0xFF1976D2),
-                  connected ? Color(0xFF42A5F5) : Color(0xFFF5428D),
+                  const Color(0xFF0D47A1),
+                  const Color(0xFF2AC0A8),
+                  connected ? const Color(0xFF5AF542) : const Color(0xFFE8031C),
                 ],
               ),
             ),
