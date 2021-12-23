@@ -207,8 +207,14 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       bleBlocked = true;
       await Future.delayed(Duration(milliseconds: waitTimeWrite)); // TODO: Needed?
       final start = DateTime.now();
-      await characteristicMap[characteristicUuid].write(data);
-      debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
+      if (characteristicMap.containsKey(characteristicUuid)) {
+        await characteristicMap[characteristicUuid].write(data);
+        debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
+      } else {
+        logger.e('Characteristic "$characteristicUuid" not found!');
+        return false;
+      }
+
       bleBlocked = false;
       return true;
     } catch (e) {

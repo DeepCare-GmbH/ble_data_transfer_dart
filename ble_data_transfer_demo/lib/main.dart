@@ -2,6 +2,7 @@ import 'package:ble_data_transfer_demo/service/isa_data_service.dart';
 import 'package:ble_data_transfer_demo/ui/home.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ble_data_transfer/ble_data_transfer.dart';
 
 void main() {
   runApp(const MyApp());

@@ -15,6 +15,8 @@ class _HomeState extends State<Home> {
   final tcIsaDeviceName = TextEditingController();
   late IsaDataService dm;
 
+  var connected = false;
+
   @override
   void initState() {
     super.initState();
@@ -44,9 +46,41 @@ class _HomeState extends State<Home> {
     dm.disconnect();
   }
 
+  void sendShort() {
+    final messages = dm.sender.sendString(1, 'The quick brown fox jumps over the lazy dog.');
+
+    for (final m in messages) {
+      dm.sendData(m);
+    }
+  }
+
+  void sendLong() {
+    final messages = dm.sender.sendString(
+        1,
+        'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt '
+        'ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea'
+        ' rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor '
+        'sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna '
+        'aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd '
+        'gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur '
+        'sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam '
+        'voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata '
+        'sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse '
+        'molestie consequat, vel illum dolore eu f');
+
+    for (final m in messages) {
+      dm.sendData(m);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     dm = Provider.of<IsaDataService>(context);
+
+    dm.connected.then((value) {
+      connected = value;
+      setState(() {});
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -63,12 +97,12 @@ class _HomeState extends State<Home> {
                 decoration: const InputDecoration(border: OutlineInputBorder(), hintText: 'ISA Device Name'),
               ),
             ),
-            createCommandButton('Connect', connect),
-            createCommandButton('Disconnect', disconnect),
-            createCommandButton('Send short', null),
-            createCommandButton('Send long', null),
-            createCommandButton('Download file', null),
-            createCommandButton('Send file', null),
+            createCommandButton('Connect', connect, connected),
+            createCommandButton('Disconnect', disconnect, connected),
+            createCommandButton('Send short', sendShort, connected),
+            createCommandButton('Send long', null, connected),
+            createCommandButton('Download file', null, connected),
+            createCommandButton('Send file', null, connected),
           ],
         ),
       ),
@@ -80,18 +114,18 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Widget createCommandButton(String name, Function? f) {
+  Widget createCommandButton(String name, Function? f, bool connected) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(4),
         child: Container(
-            decoration: const BoxDecoration(
+            decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: <Color>[
                   Color(0xFF0D47A1),
                   Color(0xFF1976D2),
-                  Color(0xFF42A5F5),
+                  connected ? Color(0xFF42A5F5) : Color(0xFFF5428D),
                 ],
               ),
             ),

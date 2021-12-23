@@ -12,6 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  ble_data_transfer:
+    path: ../ble_data_transfer/
+
   cupertino_icons: ^1.0.2
   flutter_blue: ^0.8.0
   permission_handler: ^8.3.0

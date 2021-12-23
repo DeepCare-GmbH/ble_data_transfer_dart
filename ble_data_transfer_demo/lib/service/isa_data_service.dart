@@ -1,3 +1,4 @@
+import 'package:ble_data_transfer/ble_data_transfer.dart';
 import 'package:ble_data_transfer_demo/generated/screen_saver.pb.dart';
 import 'package:ble_data_transfer_demo/generated/stats.pb.dart';
 import 'package:ble_data_transfer_demo/models/device_data.dart';
@@ -14,7 +15,7 @@ class IsaDataService {
   late String deviceName; // Device name like "dc00112"
 
   final flutterBlue = FlutterBlue.instance;
-  Sender s = Sender();
+  Sender sender = Sender();
 
   DeviceStatistics? deviceStatistics; // Last statistic received via Bluetooth.
   DateTime lastUpdate = DateTime.now(); // Timestamp of last update.
@@ -58,6 +59,12 @@ class IsaDataService {
 
   Future<bool> disconnect() async {
     return await bluetoothDevice.disconnect();
+  }
+
+  /// Send user name to ISA via Bluetooth.
+  Future<void> sendData(data) async {
+    await bluetoothDevice.writeRawCharacteristic(BleUuid.data, BleUuid.data, data.writeToBuffer());
+    await Future.delayed(const Duration(milliseconds: 5)); // TODO: Needed?
   }
 
   /// Send user name to ISA via Bluetooth.
