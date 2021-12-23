@@ -1,0 +1,3 @@
+[submodule "bluetooth_communication"]
+	path = bluetooth_communication
+	url = git@gitlab.com:deepcaregmbh/bluetooth_communication.git
