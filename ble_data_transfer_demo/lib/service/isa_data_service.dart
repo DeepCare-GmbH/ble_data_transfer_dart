@@ -120,7 +120,7 @@ class IsaDataService {
       return deviceStatistics ?? DeviceStatistics.empty();
     } else if (message.isEmpty) {
       // TODO: return error!
-      logger.e('readRawCharacteristic returned is empty!');
+      logger.e('readRawCharacteristic returned empty!');
       return DeviceStatistics.empty();
     } else {
       debugPrint('Protobuf message length: ${message.length}');

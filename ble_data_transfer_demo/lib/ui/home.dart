@@ -1,3 +1,4 @@
+import 'package:ble_data_transfer_demo/service/downloader.dart';
 import 'package:ble_data_transfer_demo/service/isa_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,9 @@ class _HomeState extends State<Home> {
 
   var connected = false;
 
+  var progressDownload = 0.0;
+  var progressUpdate = 0.25;
+
   @override
   void initState() {
     super.initState();
@@ -33,7 +37,7 @@ class _HomeState extends State<Home> {
   }
 
   void connect() {
-    dm.connect(tcIsaDeviceName.text).then((value) {
+    dm.connect(tcIsaDeviceName.text.toLowerCase()).then((value) {
       if (value) {
         debugPrint('Is connected to "${tcIsaDeviceName.text}".');
       } else {
@@ -70,6 +74,18 @@ class _HomeState extends State<Home> {
 
     for (final m in messages) {
       dm.sendData(m);
+    }
+  }
+
+  void download() async {
+    final stream = downloadFile(
+      url:
+          'https://az764295.vo.msecnd.net/stable/899d46d82c4c95423fb7e10e68eba52050e30ba3/VSCodeUserSetup-ia32-1.63.2.exe',
+      filename: 'vscode.exe',
+    );
+    await for (final p in stream) {
+      progressDownload = p;
+      setState(() {});
     }
   }
 
@@ -111,8 +127,19 @@ class _HomeState extends State<Home> {
               ),
               createCommandButton('Send short', sendShort, connected),
               createCommandButton('Send long', null, connected),
-              createCommandButton('Download file', null, connected),
+              const SizedBox(
+                height: 20,
+              ),
+              createCommandButton('Download file', download, true),
+              LinearProgressIndicator(
+                value: progressDownload,
+                semanticsLabel: 'Linear progress indicator',
+              ),
               createCommandButton('Send file', null, connected),
+              LinearProgressIndicator(
+                value: progressUpdate,
+                semanticsLabel: 'Linear progress indicator',
+              ),
             ],
           ),
         ),
