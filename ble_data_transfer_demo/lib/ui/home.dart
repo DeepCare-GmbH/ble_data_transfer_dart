@@ -126,7 +126,7 @@ class _HomeState extends State<Home> {
                 height: 20,
               ),
               createCommandButton('Send short', sendShort, connected),
-              createCommandButton('Send long', null, connected),
+              createCommandButton('Send long', sendLong, connected),
               const SizedBox(
                 height: 20,
               ),

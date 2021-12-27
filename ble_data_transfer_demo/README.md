@@ -16,3 +16,16 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 protoc -I=./bluetooth_communication/ --dart_out=./ble_data_transfer_demo/lib/generated/ ./bluetooth_communication/*.proto
+
+
+## TODO
+
+### Lib for background download:
+[https://github.com/fluttercommunity/flutter_downloader](https://github.com/fluttercommunity/flutter_downloader)
+
+### Background task:
+https://github.com/fluttercommunity/flutter_workmanager
+
+### List:
+https://github.com/fluttercommunity/community
+https://plus.fluttercommunity.dev/
