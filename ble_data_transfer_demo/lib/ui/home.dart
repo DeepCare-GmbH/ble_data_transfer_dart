@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
     }
   }
 
-  void sendLong() {
+  Future<void> sendLong() async {
     final messages = dm.sender.sendString(
         1,
         'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt '
@@ -74,6 +74,7 @@ class _HomeState extends State<Home> {
 
     for (final m in messages) {
       dm.sendData(m);
+      await Future.delayed(const Duration(milliseconds: 100));
     }
   }
 
