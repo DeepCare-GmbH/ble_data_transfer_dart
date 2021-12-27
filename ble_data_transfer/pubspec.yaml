@@ -15,5 +15,6 @@ dev_dependencies:
   test: ^1.16.0
 
 dependencies: 
+  collection: ^1.15.0
   crypto: ^3.0.1
   protobuf: ^2.0.1

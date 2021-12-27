@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
+import 'package:collection/collection.dart';
+
 import '../generated/proto/transfer_data.pb.dart';
 import 'package:crypto/crypto.dart';
 
@@ -19,15 +21,13 @@ class Sender {
     final parts = splitBuffer(b);
     int currentChunk = 0;
 
-    final hash = hashList(b);
-
     // Send all chunks:
     if (parts.isNotEmpty) {
       for (var part in parts) {
         final data = TransferData();
 
         data.address = address;
-        data.hash = hash;
+        data.hash = hashList(part);
         data.currentChunk = currentChunk;
         data.overallChunks = parts.length;
 
@@ -47,7 +47,7 @@ class Sender {
       final data = TransferData();
 
       data.address = address;
-      data.hash = hash;
+      data.hash = hashList([]);
       data.currentChunk = 0;
       data.overallChunks = 1;
       messages.add(data);
@@ -104,6 +104,14 @@ class Sender {
     var overallChunks = -1;
 
     for (var m in messages) {
+      // Check hash:
+      if (!IterableEquality().equals(hashList(m.data), m.hash)) {
+        print('Hash wrong!');
+        print('Calc hash:    ${hashList(m.data)}');
+        print('Message hash: ${m.hash}');
+        throw Exception('Hash not correct!');
+      }
+
       list.add(m.data);
       if (m.currentChunk != chunk) {
         throw Exception('Wrong chunk order!');
@@ -115,6 +123,8 @@ class Sender {
     if (overallChunks != chunk) {
       throw Exception('Not all chunks found!');
     }
-    return mergeBuffer(list);
+
+    final fullBuffer = mergeBuffer(list);
+    return fullBuffer;
   }
 }

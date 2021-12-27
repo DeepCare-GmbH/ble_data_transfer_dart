@@ -63,5 +63,16 @@ void main() {
         expect(s, sender.receiveString(m));
       }
     });
+
+    test('Hash', () {
+      final h = sender.hashList([1, 2, 3, 4]);
+      expect([8, 214], h);
+    });
+
+    test('Hash message', () {
+      final h1 = sender.sendBuffer(10, [1, 2, 3, 4]);
+      print(h1[0].hash);
+      var merged = sender.receiveBuffer(h1);
+    });
   });
 }
