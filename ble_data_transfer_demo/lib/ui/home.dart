@@ -73,8 +73,7 @@ class _HomeState extends State<Home> {
         'molestie consequat, vel illum dolore eu f');
 
     for (final m in messages) {
-      dm.sendData(m);
-      await Future.delayed(const Duration(milliseconds: 100));
+      await dm.sendData(m);
     }
   }
 
