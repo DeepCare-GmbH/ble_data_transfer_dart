@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:ble_data_transfer_demo/service/downloader.dart';
 import 'package:ble_data_transfer_demo/service/isa_data_service.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
@@ -78,14 +81,29 @@ class _HomeState extends State<Home> {
   }
 
   void download() async {
+    const fileToDownload =
+        'https://download.microsoft.com/download/d/a/1/da12d1ed-c3ce-43a4-8af6-72182d2c2d4f/VMM2008_White_Paper_Draft3.6_FINAL[1].pdf';
+    //final fileToDownload = 'https://az764295.vo.msecnd.net/stable/899d46d82c4c95423fb7e10e68eba52050e30ba3/VSCodeUserSetup-ia32-1.63.2.exe';
+
     final stream = downloadFile(
-      url:
-          'https://az764295.vo.msecnd.net/stable/899d46d82c4c95423fb7e10e68eba52050e30ba3/VSCodeUserSetup-ia32-1.63.2.exe',
-      filename: 'vscode.exe',
+      url: fileToDownload,
+      filename: 'update.pdf',
     );
     await for (final p in stream) {
       progressDownload = p;
       setState(() {});
+    }
+  }
+
+  void sendFile() async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
+    print(dir);
+    final fileBuffer = await File('$dir/update.pdf').readAsBytes();
+
+    final messages = dm.sender.sendBuffer(2, fileBuffer);
+
+    for (final m in messages) {
+      await dm.sendData(m);
     }
   }
 
@@ -135,7 +153,7 @@ class _HomeState extends State<Home> {
                 value: progressDownload,
                 semanticsLabel: 'Linear progress indicator',
               ),
-              createCommandButton('Send file', null, connected),
+              createCommandButton('Send file', sendFile, connected),
               LinearProgressIndicator(
                 value: progressUpdate,
                 semanticsLabel: 'Linear progress indicator',
