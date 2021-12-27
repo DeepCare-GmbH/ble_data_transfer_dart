@@ -102,8 +102,14 @@ class _HomeState extends State<Home> {
 
     final messages = dm.sender.sendBuffer(2, fileBuffer);
 
+    // TODO: Set progress bar!
+    // TODO: Log speed and time!
+    var currentChunk = 0.0;
     for (final m in messages) {
+      progressUpdate = currentChunk / messages.length;
+      setState(() {});
       await dm.sendData(m);
+      currentChunk += 1;
     }
   }
 
