@@ -35,6 +35,13 @@ void main() {
       sender.sendString(65465, s1000);
     });
 
+    test('Raw message', () {
+      final testArray = [1, 2, 3, 4];
+      final h1 = sender.sendBuffer(10, testArray);
+      final merged = sender.receiveBuffer(h1);
+      expect(merged, testArray);
+    });
+
     test('Test merge and split', () {
       // Long message:
       var split = sender.splitBuffer(utf8.encode(s1000));
@@ -67,12 +74,6 @@ void main() {
     test('Hash', () {
       final h = sender.hashList([1, 2, 3, 4]);
       expect([8, 214], h);
-    });
-
-    test('Hash message', () {
-      final h1 = sender.sendBuffer(10, [1, 2, 3, 4]);
-      print(h1[0].hash);
-      var merged = sender.receiveBuffer(h1);
     });
   });
 }

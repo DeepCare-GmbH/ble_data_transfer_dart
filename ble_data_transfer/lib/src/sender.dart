@@ -104,11 +104,11 @@ class Sender {
     var overallChunks = -1;
 
     for (var m in messages) {
-      // Check hash:
+      // Check hash values:
       if (!IterableEquality().equals(hashList(m.data), m.hash)) {
         print('Hash wrong!');
-        print('Calc hash:    ${hashList(m.data)}');
-        print('Message hash: ${m.hash}');
+        print('Calculated hash: ${hashList(m.data)}');
+        print('Message hash:    ${m.hash}');
         throw Exception('Hash not correct!');
       }
 
