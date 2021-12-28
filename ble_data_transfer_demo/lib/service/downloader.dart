@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -69,28 +68,6 @@ Stream<double> downloadFile({required String url, required String filename}) asy
       debugPrint('${f.format(progress * 100)}%');
       yield progress;
     }
-  }
-}
-
-// Stream<List<int>> openRead(
-//
-// [int? start,
-//     int? end]
-//
-// )
-void readFile() async {
-  final file = File('file.txt');
-  Stream<String> lines = file
-      .openRead()
-      .transform(utf8.decoder) // Decode bytes to UTF-8.
-      .transform(const LineSplitter()); // Convert stream to individual lines.
-  try {
-    await for (var line in lines) {
-      print('$line: ${line.length} characters');
-    }
-    print('File is now closed.');
-  } catch (e) {
-    print('Error: $e');
   }
 }
 

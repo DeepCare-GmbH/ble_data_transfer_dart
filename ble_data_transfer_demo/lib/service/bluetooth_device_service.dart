@@ -122,9 +122,17 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   @override
   Future<bool> disconnect() async {
     if (device != null) {
-      device!.disconnect();
+      await device!.disconnect();
+      device = null;
       return true;
     }
+
+    // TODO: Maybe not that helpful
+    await flutterBlue.connectedDevices.then((connectedDevices) {
+      for (int i = 0; i < connectedDevices.length; i++) {
+        connectedDevices[i].disconnect();
+      }
+    });
 
     logger.w('No device connected!');
     // TODO: Return real error!

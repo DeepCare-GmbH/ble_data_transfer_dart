@@ -5,6 +5,7 @@ import 'package:ble_data_transfer_demo/service/isa_data_service.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key, required this.title}) : super(key: key);
@@ -19,16 +20,28 @@ class _HomeState extends State<Home> {
   final tcIsaDeviceName = TextEditingController();
   late IsaDataService dm;
 
+  String deviceName = '';
+
   var connected = false;
 
   var progressDownload = 0.0;
-  var progressUpdate = 0.25;
+  var progressUpdate = 0.0;
+
+  late SharedPreferences _prefs;
 
   @override
   void initState() {
     super.initState();
 
-    tcIsaDeviceName.text = 'dc00135';
+    SharedPreferences.getInstance().then((prefs) {
+      _prefs = prefs;
+      deviceName = _prefs.getString('device_name') ?? 'dc00135';
+      tcIsaDeviceName.text = deviceName;
+    });
+
+    tcIsaDeviceName.addListener(() {
+      _prefs.setString('device_name', tcIsaDeviceName.text);
+    });
   }
 
   @override
@@ -97,7 +110,6 @@ class _HomeState extends State<Home> {
 
   void sendFile() async {
     String dir = (await getApplicationDocumentsDirectory()).path;
-    print(dir);
     final fileBuffer = await File('$dir/update.pdf').readAsBytes();
 
     final messages = dm.sender.sendBuffer(2, fileBuffer);
@@ -129,43 +141,45 @@ class _HomeState extends State<Home> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              TextField(
-                controller: tcIsaDeviceName,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'ISA Device Name',
-                  helperText: 'Name of ISA',
+          child: ListView(children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                TextField(
+                  controller: tcIsaDeviceName,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'ISA Device Name',
+                    helperText: 'Name of ISA',
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              createCommandButton('Connect', connect, connected),
-              createCommandButton('Disconnect', disconnect, connected),
-              const SizedBox(
-                height: 20,
-              ),
-              createCommandButton('Send short', sendShort, connected),
-              createCommandButton('Send long', sendLong, connected),
-              const SizedBox(
-                height: 20,
-              ),
-              createCommandButton('Download file', download, true),
-              LinearProgressIndicator(
-                value: progressDownload,
-                semanticsLabel: 'Linear progress indicator',
-              ),
-              createCommandButton('Send file', sendFile, connected),
-              LinearProgressIndicator(
-                value: progressUpdate,
-                semanticsLabel: 'Linear progress indicator',
-              ),
-            ],
-          ),
+                const SizedBox(
+                  height: 20,
+                ),
+                createCommandButton('Connect', connect, connected),
+                createCommandButton('Disconnect', disconnect, connected),
+                const SizedBox(
+                  height: 20,
+                ),
+                createCommandButton('Send short', sendShort, connected),
+                createCommandButton('Send long', sendLong, connected),
+                const SizedBox(
+                  height: 20,
+                ),
+                createCommandButton('Download file', download, true),
+                LinearProgressIndicator(
+                  value: progressDownload,
+                  semanticsLabel: 'Linear progress indicator',
+                ),
+                createCommandButton('Send file', sendFile, connected),
+                LinearProgressIndicator(
+                  value: progressUpdate,
+                  semanticsLabel: 'Linear progress indicator',
+                ),
+              ],
+            ),
+          ]),
         ),
       ),
       // floatingActionButton: FloatingActionButton(

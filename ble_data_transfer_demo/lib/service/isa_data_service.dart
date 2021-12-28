@@ -42,13 +42,26 @@ class IsaDataService {
 
   /// Connect cell phone to ISA.
   Future<bool> connect(deviceName) async {
+    debugPrint('Try to connect!');
+    final con = await bluetoothDevice.isIsaConnected();
+    if (con == true) {
+      logger.w('Already connected!');
+      return true;
+    }
+
+    if (connectionOngoing == true) {
+      logger.w('Multiple connection attempts!');
+      return false;
+    }
+
     connectionOngoing = true;
     try {
       await bluetoothDevice.connectDevice(deviceName);
-      connectionOngoing = false;
 
+      // TODO: Coupling not great!
       await sendUsername();
 
+      connectionOngoing = false;
       return true;
     } catch (e) {
       // loggerNoStack.w('Could not connect to ISA!');
@@ -58,6 +71,7 @@ class IsaDataService {
   }
 
   Future<bool> disconnect() async {
+    connectionOngoing = false;
     return await bluetoothDevice.disconnect();
   }
 
