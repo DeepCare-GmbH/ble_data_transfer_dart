@@ -100,10 +100,10 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
 
       // TODO: Check but should be as big as possible:
       debugPrint('MTU before request: ${await device?.mtu.first}');
-      await device?.requestMtu(100);
       if (Platform.isAndroid) {
-        debugPrint('MTU after request: ${await device?.mtu.first}');
+        await device?.requestMtu(517);
       }
+      debugPrint('MTU before request: ${await device?.mtu.first}');
 
       if (device != null) {
         loggerNoStack.i('ISA connected.');
