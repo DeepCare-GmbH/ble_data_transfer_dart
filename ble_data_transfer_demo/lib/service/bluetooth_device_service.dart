@@ -36,7 +36,7 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   // readCharacteristic was called before last read finished
   final int waitTimeWrite = 5; // TODO: Not needed?
   final int waitTimeRead = 5; // TODO: Not needed?
-  var bleBlocked = true; // Mutex to avoid reading and writing at same time.
+  var bleBlocked = false; // Mutex to avoid reading and writing at same time.
 
   Map characteristicMap = <String, BluetoothCharacteristic>{};
 

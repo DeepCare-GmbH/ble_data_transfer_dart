@@ -123,6 +123,7 @@ class _HomeState extends State<Home> {
       progressUpdate = currentChunk / messages.length;
       setState(() {});
       await dm.sendData(m);
+      await Future.delayed(const Duration(milliseconds: 5));
       currentChunk += 1;
     }
   }
