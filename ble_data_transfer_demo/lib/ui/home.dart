@@ -22,6 +22,8 @@ class _HomeState extends State<Home> {
 
   String deviceName = '';
 
+  int mtu = 0;
+
   var connected = false;
 
   var progressDownload = 0.0;
@@ -134,6 +136,11 @@ class _HomeState extends State<Home> {
       setState(() {});
     });
 
+    dm.getMTU().then((value) {
+      mtu = value;
+      setState(() {});
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -176,6 +183,14 @@ class _HomeState extends State<Home> {
                 LinearProgressIndicator(
                   value: progressUpdate,
                   semanticsLabel: 'Linear progress indicator',
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text('MTU: $mtu'),
+                    ),
+                  ],
                 ),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
@@ -18,6 +19,8 @@ abstract class BluetoothDeviceService {
   Future<bool> isIsaConnected();
 
   bool get connected;
+
+  Future<int> getMTU();
 }
 
 class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
@@ -96,9 +99,11 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       });
 
       // TODO: Check but should be as big as possible:
-      // if (Platform.isAndroid) {
-      //   await device?.requestMtu(185);
-      // }
+      debugPrint('MTU before request: ${await device?.mtu.first}');
+      await device?.requestMtu(100);
+      if (Platform.isAndroid) {
+        debugPrint('MTU after request: ${await device?.mtu.first}');
+      }
 
       if (device != null) {
         loggerNoStack.i('ISA connected.');
@@ -133,6 +138,9 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
         connectedDevices[i].disconnect();
       }
     });
+
+    // Reset since no longer needed:
+    characteristicMap = <String, BluetoothCharacteristic>{};
 
     logger.w('No device connected!');
     // TODO: Return real error!
@@ -301,5 +309,10 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   @override
   Future<bool> isIsaConnected() async {
     return await device?.state.last == BluetoothDeviceState.connected;
+  }
+
+  @override
+  Future<int> getMTU() async {
+    return await device?.mtu.first ?? 0;
   }
 }

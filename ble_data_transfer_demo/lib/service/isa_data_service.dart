@@ -154,4 +154,8 @@ class IsaDataService {
       }
     }
   }
+
+  Future<int> getMTU() async {
+    return await bluetoothDevice.getMTU();
+  }
 }
