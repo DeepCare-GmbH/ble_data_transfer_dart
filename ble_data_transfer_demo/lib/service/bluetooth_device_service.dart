@@ -114,10 +114,12 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       // TODO: Check but should be as big as possible:
       debugPrint('MTU before request: ${await device?.mtu.first}');
       if (Platform.isAndroid) {
-        await device?.requestMtu(517);
+        //await device?.requestMtu(517);
       }
       debugPrint('MTU before request: ${await device?.mtu.first}');
     });
+
+    bleBlocked = false;
 
     return _completer.future;
   }
