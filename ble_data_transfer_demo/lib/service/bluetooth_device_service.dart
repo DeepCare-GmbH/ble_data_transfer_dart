@@ -34,8 +34,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   // TODO: Added delays to avoid following error. Maybe only needed for Android!
   // PlatformException(read_characteristic_error, unknown reason, may occur if
   // readCharacteristic was called before last read finished
-  final int waitTimeWrite = 5; // TODO: Not needed?
-  final int waitTimeRead = 5; // TODO: Not needed?
+  final int waitTimeWrite = 10; // TODO: Not needed?
+  final int waitTimeRead = 10; // TODO: Not needed?
   var bleBlocked = false; // Mutex to avoid reading and writing at same time.
 
   Map characteristicMap = <String, BluetoothCharacteristic>{};
@@ -114,6 +114,7 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       // TODO: Check but should be as big as possible:
       debugPrint('MTU before request: ${await device?.mtu.first}');
       if (Platform.isAndroid) {
+        // TODO: Causes trouble sometimes!
         //await device?.requestMtu(517);
       }
       debugPrint('MTU before request: ${await device?.mtu.first}');
@@ -170,7 +171,6 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
         return _completer.future;
       } catch (e) {
         logger.e(e);
-        bleBlocked = false;
         return null;
       }
     } else {

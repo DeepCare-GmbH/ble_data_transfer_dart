@@ -7,8 +7,22 @@ import 'package:crypto/crypto.dart';
 
 class Sender {
   Hash hashGenerator = md5;
-  final mtu = 185; // TODO: Read from Bluetooth;
-  final payload = 185 - 22; // TODO: Calc!
+
+  int _mtu = 512; // TODO: Read from Bluetooth;
+  late int _payload;
+
+  Sender() {
+    _payload = _mtu - 22;
+  }
+
+  int get mtu {
+    return _mtu;
+  }
+
+  set mtu(mtu) {
+    _mtu = mtu;
+    _payload = _mtu - 22;
+  }
 
   List<TransferData> sendString(int address, String s) {
     final buffer = utf8.encode(s);
@@ -75,8 +89,8 @@ class Sender {
   List<List<int>> splitBuffer(List<int> buffer) {
     List<List<int>> ret = [];
 
-    for (var i = 0; i < buffer.length; i += payload) {
-      ret.add(buffer.sublist(i, min(i + payload, buffer.length)));
+    for (var i = 0; i < buffer.length; i += _payload) {
+      ret.add(buffer.sublist(i, min(i + _payload, buffer.length)));
     }
     return ret;
   }
