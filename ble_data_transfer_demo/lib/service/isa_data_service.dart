@@ -75,10 +75,15 @@ class IsaDataService {
     return await bluetoothDevice.disconnect();
   }
 
-  /// Send user name to ISA via Bluetooth.
-  Future<void> sendData(data) async {
-    await bluetoothDevice.writeRawCharacteristic(BleUuid.data, BleUuid.data, data.writeToBuffer());
+  /// Send data to ISA via Bluetooth.
+  Future<void> sendData(String uuid, data) async {
+    await bluetoothDevice.writeRawCharacteristic(uuid, uuid, data.writeToBuffer());
     await Future.delayed(const Duration(milliseconds: 5)); // TODO: Needed?
+  }
+
+  /// Read data from ISA via Bluetooth.
+  Future<List<int>?> readData(String uuid) async {
+    return await bluetoothDevice.readRawCharacteristic(uuid, uuid);
   }
 
   /// Send user name to ISA via Bluetooth.

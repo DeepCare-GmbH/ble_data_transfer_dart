@@ -1,5 +1,6 @@
 import 'dart:io';
-
+import 'package:ble_data_transfer/ble_data_transfer.dart';
+import 'package:ble_data_transfer_demo/service/ble_uuid.dart';
 import 'package:ble_data_transfer_demo/service/downloader.dart';
 import 'package:ble_data_transfer_demo/service/isa_data_service.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _HomeState extends State<Home> {
     final messages = dm.sender.sendString(1, 'The quick brown fox jumps over the lazy dog.');
 
     for (final m in messages) {
-      dm.sendData(m);
+      dm.sendData(BleUuid.data, m);
     }
   }
 
@@ -91,7 +92,7 @@ class _HomeState extends State<Home> {
         'molestie consequat, vel illum dolore eu f');
 
     for (final m in messages) {
-      await dm.sendData(m);
+      await dm.sendData(BleUuid.data, m);
     }
   }
 
@@ -112,6 +113,43 @@ class _HomeState extends State<Home> {
 
   void sendFile() async {
     String dir = (await getApplicationDocumentsDirectory()).path;
+
+    FileTransfer ft = FileTransfer();
+    await ft.setFileToSend('$dir/update.pdf');
+
+    final startMessage = ft.getStartMessage('update2.pdf');
+    debugPrint('$startMessage');
+
+    dm.sendData(BleUuid.startRequest, startMessage);
+
+    // Send big file chunks:
+    var c = ft.getNextChunk();
+    while (c != null) {
+      // Progress of file transfer: (One ahead for progress)
+      debugPrint('>>>>> ${ft.currentChunk}');
+      debugPrint('>>>>>>${ft.totalChunks}');
+      progressUpdate = (ft.currentChunk - 1) / ft.totalChunks;
+      setState(() {});
+
+      // Send small chunks:
+      for (final m in c) {
+        await dm.sendData(BleUuid.data, m);
+        await Future.delayed(const Duration(milliseconds: 5));
+      }
+
+      final response = await dm.readData(BleUuid.startResponse);
+      debugPrint('Response: ${response ?? "Empty response!"}');
+
+      c = ft.getNextChunk();
+    }
+
+    progressUpdate = 1.0;
+    setState(() {});
+    debugPrint('File transfer finished.');
+  }
+
+  void sendFileOld() async {
+    String dir = (await getApplicationDocumentsDirectory()).path;
     final fileBuffer = await File('$dir/update.pdf').readAsBytes();
 
     final messages = dm.sender.sendBuffer(2, fileBuffer);
@@ -122,7 +160,7 @@ class _HomeState extends State<Home> {
     for (final m in messages) {
       progressUpdate = currentChunk / messages.length;
       setState(() {});
-      await dm.sendData(m);
+      await dm.sendData(BleUuid.data, m);
       await Future.delayed(const Duration(milliseconds: 5));
       currentChunk += 1;
     }

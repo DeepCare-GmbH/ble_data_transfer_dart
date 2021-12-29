@@ -13,6 +13,10 @@ class Helper {
     return _hashGenerator.convert(list).bytes.sublist(0, 2);
   }
 
+  static List<int> hashListFull(List<int> list) {
+    return _hashGenerator.convert(list).bytes;
+  }
+
   static List<List<int>> splitBuffer(List<int> buffer, int length) {
     List<List<int>> ret = [];
 
