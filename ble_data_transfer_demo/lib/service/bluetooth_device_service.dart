@@ -98,13 +98,6 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
         connectedInternal = event == BluetoothDeviceState.connected;
       });
 
-      // TODO: Check but should be as big as possible:
-      debugPrint('MTU before request: ${await device?.mtu.first}');
-      if (Platform.isAndroid) {
-        await device?.requestMtu(517);
-      }
-      debugPrint('MTU before request: ${await device?.mtu.first}');
-
       if (device != null) {
         loggerNoStack.i('ISA connected.');
 
@@ -117,6 +110,13 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
         logger.e('Failed to connect to ISA!');
         _completer.completeError('Failed to connect!');
       }
+
+      // TODO: Check but should be as big as possible:
+      debugPrint('MTU before request: ${await device?.mtu.first}');
+      if (Platform.isAndroid) {
+        await device?.requestMtu(517);
+      }
+      debugPrint('MTU before request: ${await device?.mtu.first}');
     });
 
     return _completer.future;
@@ -125,7 +125,7 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   @override
   Future<bool> disconnect() async {
     if (device != null) {
-      await device!.disconnect();
+      await device?.disconnect();
       device = null;
     }
 
@@ -223,23 +223,22 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       return false;
     }
 
-    try {
-      bleBlocked = true;
-      await Future.delayed(Duration(milliseconds: waitTimeWrite)); // TODO: Needed?
-      final start = DateTime.now();
-      if (characteristicMap.containsKey(characteristicUuid)) {
+    await Future.delayed(Duration(milliseconds: waitTimeWrite)); // TODO: Needed?
+    final start = DateTime.now();
+    if (characteristicMap.containsKey(characteristicUuid)) {
+      try {
+        bleBlocked = true;
         await characteristicMap[characteristicUuid].write(data);
-        debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
         bleBlocked = false;
+        debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
         return true;
-      } else {
-        logger.e('Characteristic "$characteristicUuid" not found!');
+      } catch (e) {
+        logger.e(e);
         bleBlocked = false;
         return false;
       }
-    } catch (e) {
-      logger.e(e);
-      bleBlocked = false;
+    } else {
+      logger.e('Characteristic "$characteristicUuid" not found!');
       return false;
     }
   }
@@ -250,6 +249,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
 
     // Ignore old services and characteristics:
     characteristicMap.clear();
+
+    debugPrint('Start reading Characteristics...');
 
     for (var service in services) {
       for (var characteristic in service.characteristics) {
