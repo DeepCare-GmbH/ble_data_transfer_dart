@@ -108,11 +108,9 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       if (device != null) {
         loggerNoStack.i('ISA connected.');
 
-        // Detect all services and store in map:
+        debugPrint('Detect all services and store in map');
         List<BluetoothService> services = await device!.discoverServices();
         discoverServices(services);
-
-        bleBlocked = false;
 
         _completer.complete(device);
       } else {
@@ -129,7 +127,6 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
     if (device != null) {
       await device!.disconnect();
       device = null;
-      return true;
     }
 
     // TODO: Maybe not that helpful
@@ -157,12 +154,15 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
     }
 
     if (device != null) {
-      bleBlocked = true;
       try {
         await Future.delayed(Duration(milliseconds: waitTimeRead));
 
         final start = DateTime.now();
+
+        // TODO: Move  in function!
+        bleBlocked = true;
         List<int> value = await characteristicMap[characteristicUuid].read();
+        bleBlocked = false;
         debugPrint('Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
         _completer.complete(String.fromCharCodes(value));
         return _completer.future;
@@ -188,13 +188,17 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
 
     if (device != null) {
       if (characteristicMap.containsKey(characteristicUuid)) {
-        bleBlocked = true;
         try {
           await Future.delayed(Duration(milliseconds: waitTimeRead));
           final start = DateTime.now();
+
+          // TODO: Mutex?
+          bleBlocked = true;
           List<int> value = await characteristicMap[characteristicUuid].read();
-          debugPrint('Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
           bleBlocked = false;
+
+          debugPrint('Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
+
           _completer.complete(value);
         } catch (e) {
           logger.e(e);
@@ -214,7 +218,7 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   Future<bool> writeRawCharacteristic(String serviceUuid, String characteristicUuid, List<int> data) async {
     // TODO: Service not needed!
 
-    if (bleBlocked) {
+    if (bleBlocked == true) {
       logger.e('Device blocked WRITE!');
       return false;
     }
@@ -226,14 +230,13 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       if (characteristicMap.containsKey(characteristicUuid)) {
         await characteristicMap[characteristicUuid].write(data);
         debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
+        bleBlocked = false;
+        return true;
       } else {
         logger.e('Characteristic "$characteristicUuid" not found!');
         bleBlocked = false;
         return false;
       }
-
-      bleBlocked = false;
-      return true;
     } catch (e) {
       logger.e(e);
       bleBlocked = false;
@@ -247,8 +250,10 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
 
     // Ignore old services and characteristics:
     characteristicMap.clear();
+
     for (var service in services) {
       for (var characteristic in service.characteristics) {
+        debugPrint('Service: ${service.uuid} Characteristics: ${characteristic.uuid}');
         characteristicMap[characteristic.uuid.toString()] = characteristic;
       }
     }
