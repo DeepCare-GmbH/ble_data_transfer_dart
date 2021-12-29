@@ -228,6 +228,7 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
         debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
       } else {
         logger.e('Characteristic "$characteristicUuid" not found!');
+        bleBlocked = false;
         return false;
       }
 
