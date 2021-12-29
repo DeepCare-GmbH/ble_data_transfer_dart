@@ -63,7 +63,7 @@ sudo snap install protobuf --classic
 dart pub global activate protoc_plugin
 
 # Create dart files:
-protoc -I=./proto/ --dart_out=./ble_data_transfer/generated/proto/ ./proto/transfer_data.proto
+protoc -I=./proto/ --dart_out=./ble_data_transfer/lib/generated/proto/ ./proto/*
 ```
 
 ## TODO

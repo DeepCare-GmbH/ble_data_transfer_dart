@@ -1,13 +1,10 @@
 import 'dart:convert';
-import 'dart:math';
+import 'package:ble_data_transfer/src/helper.dart';
 import 'package:collection/collection.dart';
-
 import '../generated/proto/transfer_data.pb.dart';
-import 'package:crypto/crypto.dart';
+import './helper.dart';
 
 class Sender {
-  Hash hashGenerator = md5;
-
   int _mtu = 512; // TODO: Read from Bluetooth;
   late int _payload;
 
@@ -32,7 +29,7 @@ class Sender {
   List<TransferData> sendBuffer(int address, List<int> b) {
     List<TransferData> messages = [];
 
-    final parts = splitBuffer(b);
+    final parts = Helper.splitBuffer(b, _payload);
     int currentChunk = 0;
 
     // Send all chunks:
@@ -41,7 +38,7 @@ class Sender {
         final data = TransferData();
 
         data.address = address;
-        data.hash = hashList(part);
+        data.hash = Helper.hashList(part);
         data.currentChunk = currentChunk;
         data.overallChunks = parts.length;
 
@@ -61,7 +58,7 @@ class Sender {
       final data = TransferData();
 
       data.address = address;
-      data.hash = hashList([]);
+      data.hash = Helper.hashList([]);
       data.currentChunk = 0;
       data.overallChunks = 1;
       messages.add(data);
@@ -78,35 +75,6 @@ class Sender {
     return messages;
   }
 
-  List<int> hashString(String s) {
-    return hashGenerator.convert(utf8.encode(s)).bytes.sublist(0, 2);
-  }
-
-  List<int> hashList(List<int> list) {
-    return hashGenerator.convert(list).bytes.sublist(0, 2);
-  }
-
-  List<List<int>> splitBuffer(List<int> buffer) {
-    List<List<int>> ret = [];
-
-    for (var i = 0; i < buffer.length; i += _payload) {
-      ret.add(buffer.sublist(i, min(i + _payload, buffer.length)));
-    }
-    return ret;
-  }
-
-  List<int> mergeBuffer(List<List<int>> list) {
-    // TODO: Slow!
-    List<int> ret = [];
-
-    for (var l in list) {
-      for (var i in l) {
-        ret.add(i);
-      }
-    }
-    return ret;
-  }
-
   String receiveString(List<TransferData> messages) {
     return utf8.decode(receiveBuffer(messages));
   }
@@ -119,9 +87,9 @@ class Sender {
 
     for (var m in messages) {
       // Check hash values:
-      if (!IterableEquality().equals(hashList(m.data), m.hash)) {
+      if (!IterableEquality().equals(Helper.hashList(m.data), m.hash)) {
         print('Hash wrong!');
-        print('Calculated hash: ${hashList(m.data)}');
+        print('Calculated hash: ${Helper.hashList(m.data)}');
         print('Message hash:    ${m.hash}');
         throw Exception('Hash not correct!');
       }
@@ -138,7 +106,7 @@ class Sender {
       throw Exception('Not all chunks found!');
     }
 
-    final fullBuffer = mergeBuffer(list);
+    final fullBuffer = Helper.mergeBuffer(list);
     return fullBuffer;
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ble_data_transfer/src/helper.dart';
 import 'package:ble_data_transfer/src/sender.dart';
 import 'package:test/test.dart';
 
@@ -44,23 +45,23 @@ void main() {
 
     test('Test merge and split', () {
       // Long message:
-      var split = sender.splitBuffer(utf8.encode(s1000));
-      var merged = sender.mergeBuffer(split);
+      var split = Helper.splitBuffer(utf8.encode(s1000), 200);
+      var merged = Helper.mergeBuffer(split);
       expect(s1000, utf8.decode(merged), reason: 'Merge/split failed!');
 
       // Check hash equal:
-      var h1 = sender.hashString(s1000);
-      var h2 = sender.hashString(utf8.decode(merged));
+      var h1 = Helper.hashString(s1000);
+      var h2 = Helper.hashString(utf8.decode(merged));
       expect(h1, h2);
 
       // Short message:
-      split = sender.splitBuffer(utf8.encode('Hallo'));
-      merged = sender.mergeBuffer(split);
+      split = Helper.splitBuffer(utf8.encode('Hallo'), 300);
+      merged = Helper.mergeBuffer(split);
       expect('Hallo', utf8.decode(merged), reason: 'Merge/split failed!');
 
       // Check hash equal:
-      h1 = sender.hashString('Hallo');
-      h2 = sender.hashString(utf8.decode(merged));
+      h1 = Helper.hashString('Hallo');
+      h2 = Helper.hashString(utf8.decode(merged));
       expect(h1, h2);
     });
 
@@ -72,7 +73,7 @@ void main() {
     });
 
     test('Hash', () {
-      final h = sender.hashList([1, 2, 3, 4]);
+      final h = Helper.hashList([1, 2, 3, 4]);
       expect([8, 214], h);
     });
   });
