@@ -18,7 +18,7 @@ class StartTransferRequest extends $pb.GeneratedMessage {
     ..aOS(1, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'filename')
     ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hash', $pb.PbFieldType.OY)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunks', $pb.PbFieldType.O3)
-    ..e<StartTransferRequest_Target>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'target', $pb.PbFieldType.OE, defaultOrMaker: StartTransferRequest_Target.DOCKER_IMAGE, valueOf: StartTransferRequest_Target.valueOf, enumValues: StartTransferRequest_Target.values)
+    ..e<Target>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'target', $pb.PbFieldType.OE, defaultOrMaker: Target.DOCKER_IMAGE, valueOf: Target.valueOf, enumValues: Target.values)
     ..e<StartTransferRequest_Direction>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'direction', $pb.PbFieldType.OE, defaultOrMaker: StartTransferRequest_Direction.MAIN, valueOf: StartTransferRequest_Direction.valueOf, enumValues: StartTransferRequest_Direction.values)
     ..hasRequiredFields = false
   ;
@@ -28,7 +28,7 @@ class StartTransferRequest extends $pb.GeneratedMessage {
     $core.String? filename,
     $core.List<$core.int>? hash,
     $core.int? chunks,
-    StartTransferRequest_Target? target,
+    Target? target,
     StartTransferRequest_Direction? direction,
   }) {
     final _result = create();
@@ -98,9 +98,9 @@ class StartTransferRequest extends $pb.GeneratedMessage {
   void clearChunks() => clearField(3);
 
   @$pb.TagNumber(4)
-  StartTransferRequest_Target get target => $_getN(3);
+  Target get target => $_getN(3);
   @$pb.TagNumber(4)
-  set target(StartTransferRequest_Target v) { setField(4, v); }
+  set target(Target v) { setField(4, v); }
   @$pb.TagNumber(4)
   $core.bool hasTarget() => $_has(3);
   @$pb.TagNumber(4)
@@ -122,7 +122,7 @@ class StartTransferResponse extends $pb.GeneratedMessage {
     ..a<$core.List<$core.int>>(2, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'hash', $pb.PbFieldType.OY)
     ..a<$core.int>(3, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'chunks', $pb.PbFieldType.O3)
     ..a<$core.int>(4, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'nextChunk', $pb.PbFieldType.O3)
-    ..e<StartTransferResponse_Target>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'target', $pb.PbFieldType.OE, defaultOrMaker: StartTransferResponse_Target.DOCKER_IMAGE, valueOf: StartTransferResponse_Target.valueOf, enumValues: StartTransferResponse_Target.values)
+    ..e<Target>(5, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'target', $pb.PbFieldType.OE, defaultOrMaker: Target.DOCKER_IMAGE, valueOf: Target.valueOf, enumValues: Target.values)
     ..e<StartTransferResponse_Status>(6, const $core.bool.fromEnvironment('protobuf.omit_field_names') ? '' : 'status', $pb.PbFieldType.OE, defaultOrMaker: StartTransferResponse_Status.UNKNOWN, valueOf: StartTransferResponse_Status.valueOf, enumValues: StartTransferResponse_Status.values)
     ..hasRequiredFields = false
   ;
@@ -133,7 +133,7 @@ class StartTransferResponse extends $pb.GeneratedMessage {
     $core.List<$core.int>? hash,
     $core.int? chunks,
     $core.int? nextChunk,
-    StartTransferResponse_Target? target,
+    Target? target,
     StartTransferResponse_Status? status,
   }) {
     final _result = create();
@@ -215,9 +215,9 @@ class StartTransferResponse extends $pb.GeneratedMessage {
   void clearNextChunk() => clearField(4);
 
   @$pb.TagNumber(5)
-  StartTransferResponse_Target get target => $_getN(4);
+  Target get target => $_getN(4);
   @$pb.TagNumber(5)
-  set target(StartTransferResponse_Target v) { setField(5, v); }
+  set target(Target v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasTarget() => $_has(4);
   @$pb.TagNumber(5)

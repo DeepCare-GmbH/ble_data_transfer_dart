@@ -45,7 +45,7 @@ class FileTransfer {
     start.chunks = fileData.length;
 
     // Enum via <Message>_<Enum>:
-    start.target = StartTransferRequest_Target.PLAIN_FILE;
+    start.target = Target.PLAIN_FILE;
     start.direction = StartTransferRequest_Direction.MAIN;
 
     return start;
