@@ -121,6 +121,9 @@ class _HomeState extends State<Home> {
     debugPrint('$startMessage');
 
     dm.sendData(BleUuid.startRequest, startMessage);
+    await Future.delayed(const Duration(milliseconds: 100));
+    final response = await dm.readData(BleUuid.startResponse);
+    debugPrint('Response: ${response ?? "Empty response!"}');
 
     // Send big file chunks:
     var c = ft.getNextChunk();
