@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
     final startMessage = ft.getStartMessage('update2.pdf');
     debugPrint('$startMessage');
 
-    dm.sendData(BleUuid.startRequest, startMessage);
+    await dm.sendData(BleUuid.startRequest, startMessage);
     await Future.delayed(const Duration(milliseconds: 100));
     final response = await dm.readData(BleUuid.startResponse);
     debugPrint('Response: ${response ?? "Empty response!"}');
