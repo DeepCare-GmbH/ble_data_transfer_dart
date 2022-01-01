@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:ble_data_transfer/ble_data_transfer.dart';
+import 'package:ble_data_transfer/generated/proto/messages.pb.dart';
 import 'package:ble_data_transfer_demo/service/ble_uuid.dart';
 import 'package:ble_data_transfer_demo/service/downloader.dart';
 import 'package:ble_data_transfer_demo/service/isa_data_service.dart';
@@ -122,8 +123,12 @@ class _HomeState extends State<Home> {
 
     await dm.sendData(BleUuid.startRequest, startMessage);
     await Future.delayed(const Duration(milliseconds: 100));
-    final response = await dm.readData(BleUuid.startResponse);
-    debugPrint('Response: ${response ?? "Empty response!"}');
+    final responseBuffer = await dm.readData(BleUuid.startResponse);
+    debugPrint('Response: ${responseBuffer ?? "Empty response!"}');
+
+    final response = StartTransferResponse.fromBuffer(responseBuffer ?? []);
+    // Continue interrupted transfer where stopped:
+    ft.currentChunk = response.nextChunk;
 
     // Send big file chunks:
     var c = ft.getNextChunk();
