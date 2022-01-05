@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:ble_data_transfer/src/file_transfer.dart';
-import 'package:ble_data_transfer/src/helper.dart';
-import 'package:ble_data_transfer/src/sender.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -22,6 +18,7 @@ void main() {
 
       for (var i = 0; i < 11; i++) {
         final chunk = sender.getNextChunk();
+        print('Length: ${chunk?.length}');
       }
 
       // When done return null:

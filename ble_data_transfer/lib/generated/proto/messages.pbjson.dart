@@ -8,6 +8,7 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+
 @$core.Deprecated('Use targetDescriptor instead')
 const Target$json = const {
   '1': 'Target',
@@ -22,7 +23,8 @@ const Target$json = const {
 };
 
 /// Descriptor for `Target`. Decode as a `google.protobuf.EnumDescriptorProto`.
-final $typed_data.Uint8List targetDescriptor = $convert.base64Decode('CgZUYXJnZXQSEAoMRE9DS0VSX0lNQUdFEAASGQoVVVNFUl9CQUNLR1JPVU5EX0lNQUdFEAESCAoEREFUQRACEg8KC0JBU0hfU0NSSVBUEAMSEgoOQU5TSUJMRV9TQ1JJUFQQBBIOCgpQTEFJTl9GSUxFEAU=');
+final $typed_data.Uint8List targetDescriptor = $convert.base64Decode(
+    'CgZUYXJnZXQSEAoMRE9DS0VSX0lNQUdFEAASGQoVVVNFUl9CQUNLR1JPVU5EX0lNQUdFEAESCAoEREFUQRACEg8KC0JBU0hfU0NSSVBUEAMSEgoOQU5TSUJMRV9TQ1JJUFQQBBIOCgpQTEFJTl9GSUxFEAU=');
 @$core.Deprecated('Use startTransferRequestDescriptor instead')
 const StartTransferRequest$json = const {
   '1': 'StartTransferRequest',
@@ -30,8 +32,22 @@ const StartTransferRequest$json = const {
     const {'1': 'filename', '3': 1, '4': 1, '5': 9, '10': 'filename'},
     const {'1': 'hash', '3': 2, '4': 1, '5': 12, '10': 'hash'},
     const {'1': 'chunks', '3': 3, '4': 1, '5': 5, '10': 'chunks'},
-    const {'1': 'target', '3': 4, '4': 1, '5': 14, '6': '.deepcare.messages.Target', '10': 'target'},
-    const {'1': 'direction', '3': 5, '4': 1, '5': 14, '6': '.deepcare.messages.StartTransferRequest.Direction', '10': 'direction'},
+    const {
+      '1': 'target',
+      '3': 4,
+      '4': 1,
+      '5': 14,
+      '6': '.deepcare.messages.Target',
+      '10': 'target'
+    },
+    const {
+      '1': 'direction',
+      '3': 5,
+      '4': 1,
+      '5': 14,
+      '6': '.deepcare.messages.StartTransferRequest.Direction',
+      '10': 'direction'
+    },
   ],
   '4': const [StartTransferRequest_Direction$json],
 };
@@ -46,7 +62,8 @@ const StartTransferRequest_Direction$json = const {
 };
 
 /// Descriptor for `StartTransferRequest`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List startTransferRequestDescriptor = $convert.base64Decode('ChRTdGFydFRyYW5zZmVyUmVxdWVzdBIaCghmaWxlbmFtZRgBIAEoCVIIZmlsZW5hbWUSEgoEaGFzaBgCIAEoDFIEaGFzaBIWCgZjaHVua3MYAyABKAVSBmNodW5rcxIxCgZ0YXJnZXQYBCABKA4yGS5kZWVwY2FyZS5tZXNzYWdlcy5UYXJnZXRSBnRhcmdldBJPCglkaXJlY3Rpb24YBSABKA4yMS5kZWVwY2FyZS5tZXNzYWdlcy5TdGFydFRyYW5zZmVyUmVxdWVzdC5EaXJlY3Rpb25SCWRpcmVjdGlvbiIhCglEaXJlY3Rpb24SCAoETUFJThAAEgoKBlNFQ09ORBAB');
+final $typed_data.Uint8List startTransferRequestDescriptor = $convert.base64Decode(
+    'ChRTdGFydFRyYW5zZmVyUmVxdWVzdBIaCghmaWxlbmFtZRgBIAEoCVIIZmlsZW5hbWUSEgoEaGFzaBgCIAEoDFIEaGFzaBIWCgZjaHVua3MYAyABKAVSBmNodW5rcxIxCgZ0YXJnZXQYBCABKA4yGS5kZWVwY2FyZS5tZXNzYWdlcy5UYXJnZXRSBnRhcmdldBJPCglkaXJlY3Rpb24YBSABKA4yMS5kZWVwY2FyZS5tZXNzYWdlcy5TdGFydFRyYW5zZmVyUmVxdWVzdC5EaXJlY3Rpb25SCWRpcmVjdGlvbiIhCglEaXJlY3Rpb24SCAoETUFJThAAEgoKBlNFQ09ORBAB');
 @$core.Deprecated('Use startTransferResponseDescriptor instead')
 const StartTransferResponse$json = const {
   '1': 'StartTransferResponse',
@@ -55,8 +72,22 @@ const StartTransferResponse$json = const {
     const {'1': 'hash', '3': 2, '4': 1, '5': 12, '10': 'hash'},
     const {'1': 'chunks', '3': 3, '4': 1, '5': 5, '10': 'chunks'},
     const {'1': 'next_chunk', '3': 4, '4': 1, '5': 5, '10': 'nextChunk'},
-    const {'1': 'target', '3': 5, '4': 1, '5': 14, '6': '.deepcare.messages.Target', '10': 'target'},
-    const {'1': 'status', '3': 6, '4': 1, '5': 14, '6': '.deepcare.messages.StartTransferResponse.Status', '10': 'status'},
+    const {
+      '1': 'target',
+      '3': 5,
+      '4': 1,
+      '5': 14,
+      '6': '.deepcare.messages.Target',
+      '10': 'target'
+    },
+    const {
+      '1': 'status',
+      '3': 6,
+      '4': 1,
+      '5': 14,
+      '6': '.deepcare.messages.StartTransferResponse.Status',
+      '10': 'status'
+    },
   ],
   '4': const [StartTransferResponse_Status$json],
 };
@@ -76,4 +107,5 @@ const StartTransferResponse_Status$json = const {
 };
 
 /// Descriptor for `StartTransferResponse`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List startTransferResponseDescriptor = $convert.base64Decode('ChVTdGFydFRyYW5zZmVyUmVzcG9uc2USGgoIZmlsZW5hbWUYASABKAlSCGZpbGVuYW1lEhIKBGhhc2gYAiABKAxSBGhhc2gSFgoGY2h1bmtzGAMgASgFUgZjaHVua3MSHQoKbmV4dF9jaHVuaxgEIAEoBVIJbmV4dENodW5rEjEKBnRhcmdldBgFIAEoDjIZLmRlZXBjYXJlLm1lc3NhZ2VzLlRhcmdldFIGdGFyZ2V0EkcKBnN0YXR1cxgGIAEoDjIvLmRlZXBjYXJlLm1lc3NhZ2VzLlN0YXJ0VHJhbnNmZXJSZXNwb25zZS5TdGF0dXNSBnN0YXR1cyJvCgZTdGF0dXMSCwoHVU5LTk9XThAAEgwKCFRSQU5TRkVSEAESDAoIRklOSVNIRUQQAhISCg5GSUxFX05PVF9GT1VORBADEgwKCEhERF9GVUxMEAQSDwoLQVVUSF9GQUlMRUQQBRIJCgVFUlJPUhAG');
+final $typed_data.Uint8List startTransferResponseDescriptor = $convert.base64Decode(
+    'ChVTdGFydFRyYW5zZmVyUmVzcG9uc2USGgoIZmlsZW5hbWUYASABKAlSCGZpbGVuYW1lEhIKBGhhc2gYAiABKAxSBGhhc2gSFgoGY2h1bmtzGAMgASgFUgZjaHVua3MSHQoKbmV4dF9jaHVuaxgEIAEoBVIJbmV4dENodW5rEjEKBnRhcmdldBgFIAEoDjIZLmRlZXBjYXJlLm1lc3NhZ2VzLlRhcmdldFIGdGFyZ2V0EkcKBnN0YXR1cxgGIAEoDjIvLmRlZXBjYXJlLm1lc3NhZ2VzLlN0YXJ0VHJhbnNmZXJSZXNwb25zZS5TdGF0dXNSBnN0YXR1cyJvCgZTdGF0dXMSCwoHVU5LTk9XThAAEgwKCFRSQU5TRkVSEAESDAoIRklOSVNIRUQQAhISCg5GSUxFX05PVF9GT1VORBADEgwKCEhERF9GVUxMEAQSDwoLQVVUSF9GQUlMRUQQBRIJCgVFUlJPUhAG');
