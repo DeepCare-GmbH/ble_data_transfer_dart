@@ -98,9 +98,13 @@ class _HomeState extends State<Home> {
   }
 
   void download() async {
-    const fileToDownload =
-        'https://download.microsoft.com/download/d/a/1/da12d1ed-c3ce-43a4-8af6-72182d2c2d4f/VMM2008_White_Paper_Draft3.6_FINAL[1].pdf';
+    //const fileToDownload =
+    //   'https://download.microsoft.com/download/d/a/1/da12d1ed-c3ce-43a4-8af6-72182d2c2d4f/VMM2008_White_Paper_Draft3.6_FINAL[1].pdf';
     //final fileToDownload = 'https://az764295.vo.msecnd.net/stable/899d46d82c4c95423fb7e10e68eba52050e30ba3/VSCodeUserSetup-ia32-1.63.2.exe';
+
+    // TODO: Should use the following link instead of hard coding:
+    // const fileToDownload = 'https://www.deepcare.work/version/update/master';
+    const fileToDownload = 'https://storage.googleapis.com/ble_updates/update_0.8.7.50.7z';
 
     final stream = downloadFile(
       url: fileToDownload,
