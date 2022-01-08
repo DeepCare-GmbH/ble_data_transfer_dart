@@ -1,7 +1,8 @@
 name: ble_data_transfer
 description: BLE data transfer library.
 
-version: 0.1.2
+version: 0.1.3
+
 # homepage: https://www.example.com
 
 environment:

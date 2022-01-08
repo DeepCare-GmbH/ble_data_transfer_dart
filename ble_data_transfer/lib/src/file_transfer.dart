@@ -33,7 +33,7 @@ class FileTransfer {
 
     final fileBuffer = await readFile(path);
     _fileHash = Helper.hashListFull(fileBuffer);
-    final fileChunks = Helper.splitBuffer(fileBuffer, 100 * 1024); // 100kB
+    final fileChunks = Helper.splitBuffer(fileBuffer, chunkSize * 1024); // 100kB
 
     for (final c in fileChunks) {
       fileData.add(sender.sendBuffer(1, c));
