@@ -5,12 +5,14 @@ import '../generated/proto/transfer_data.pb.dart';
 import './helper.dart';
 
 class Sender {
-  int _mtu = 512; // TODO: Read from Bluetooth;
   late int _payload;
 
-  Sender() {
+  Sender({mtu = 512}) {
+    _mtu = mtu;
     _payload = _mtu - 22;
   }
+
+  int _mtu = 512; // TODO: Read from Bluetooth;
 
   int get mtu {
     return _mtu;

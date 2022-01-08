@@ -12,3 +12,12 @@ Format the generated Protobuf files:
 dart format .
 ```
 
+Update Version.
+
+Update Changelog.
+
+## Publish
+
+``` bash
+dart pub publish 
+```

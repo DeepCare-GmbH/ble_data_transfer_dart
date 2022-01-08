@@ -1,4 +1,4 @@
-# BLE Transfer Library
+# BLE Data Transfer Library
 
 t.b.d.
 

@@ -5,12 +5,15 @@ import '../generated/proto/messages.pb.dart';
 import 'helper.dart';
 
 class FileTransfer {
-  Sender sender = Sender();
+  FileTransfer({this.chunkSize = 100, mtu = 512});
+
+  Sender sender = Sender(mtu: 512);
 
   StartTransferRequest? startMessage;
   List<List<TransferData>> fileData = [];
   List<int> _fileHash = [];
   int _currentChunk = 0;
+  int chunkSize;
 
   int get currentChunk => _currentChunk;
 

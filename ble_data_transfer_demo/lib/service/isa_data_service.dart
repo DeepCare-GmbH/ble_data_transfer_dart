@@ -41,8 +41,12 @@ class IsaDataService {
   }
 
   /// Connect cell phone to ISA.
-  Future<bool> connect(deviceName) async {
-    debugPrint('Try to connect!');
+  Future<bool> connect(String deviceName) async {
+    if (deviceName.isEmpty) {
+      throw Exception('No device name provide to connect!');
+    }
+
+    debugPrint('Try to connect to $deviceName!');
     final con = await bluetoothDevice.isIsaConnected();
     if (con == true) {
       logger.w('Already connected!');

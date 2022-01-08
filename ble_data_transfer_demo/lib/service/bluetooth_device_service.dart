@@ -34,8 +34,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   // TODO: Added delays to avoid following error. Maybe only needed for Android!
   // PlatformException(read_characteristic_error, unknown reason, may occur if
   // readCharacteristic was called before last read finished
-  final int waitTimeWrite = 10; // TODO: Not needed?
-  final int waitTimeRead = 10; // TODO: Not needed?
+  final int waitTimeWrite = 6; // TODO: Not needed?
+  final int waitTimeRead = 6; // TODO: Not needed?
   var bleBlocked = false; // Mutex to avoid reading and writing at same time.
 
   Map characteristicMap = <String, BluetoothCharacteristic>{};
