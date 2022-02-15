@@ -81,7 +81,8 @@ class IsaDataService {
 
   /// Send data to ISA via Bluetooth.
   Future<void> sendData(String uuid, data) async {
-    await bluetoothDevice.writeRawCharacteristic(uuid, uuid, data.writeToBuffer());
+    await bluetoothDevice.writeRawCharacteristic(
+        uuid, uuid, data.writeToBuffer());
     await Future.delayed(const Duration(milliseconds: 5)); // TODO: Needed?
   }
 
@@ -103,9 +104,11 @@ class IsaDataService {
     do {
       // Retry till username was written:
       debugPrint('Try to write username!');
-      await bluetoothDevice.writeRawCharacteristic(BleUuid.baseService, BleUuid.screenSettings, data.writeToBuffer());
+      await bluetoothDevice.writeRawCharacteristic(
+          BleUuid.baseService, BleUuid.screenSettings, data.writeToBuffer());
       await Future.delayed(const Duration(milliseconds: 5)); // TODO: Needed?
-      final currentState = await bluetoothDevice.readRawCharacteristic(BleUuid.baseService, BleUuid.screenSettings);
+      final currentState = await bluetoothDevice.readRawCharacteristic(
+          BleUuid.baseService, BleUuid.screenSettings);
       if (currentState != null) {
         current = ScreenSaver.fromBuffer(currentState);
       }
@@ -135,7 +138,8 @@ class IsaDataService {
       }
     }
 
-    final message = await bluetoothDevice.readRawCharacteristic(BleUuid.baseService, BleUuid.statics);
+    final message = await bluetoothDevice.readRawCharacteristic(
+        BleUuid.baseService, BleUuid.statics);
 
     if (message == null) {
       // logger.e('readRawCharacteristic returned null!');

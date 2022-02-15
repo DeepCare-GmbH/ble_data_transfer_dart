@@ -10,11 +10,14 @@ abstract class BluetoothDeviceService {
   Future<BluetoothDevice> connectDevice(String deviceName);
   Future<bool> disconnect();
 
-  Future<String?> readStringCharacteristic(String serviceUuid, String characteristicUuid);
+  Future<String?> readStringCharacteristic(
+      String serviceUuid, String characteristicUuid);
 
-  Future<List<int>?> readRawCharacteristic(String serviceUuid, String characteristicUuid);
+  Future<List<int>?> readRawCharacteristic(
+      String serviceUuid, String characteristicUuid);
 
-  Future<bool> writeRawCharacteristic(String serviceUuid, String characteristicUuid, List<int> data);
+  Future<bool> writeRawCharacteristic(
+      String serviceUuid, String characteristicUuid, List<int> data);
 
   Future<bool> isIsaConnected();
 
@@ -73,8 +76,10 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       for (ScanResult r in results) {
         debugPrint('"${r.device.name}" (${r.device.id})');
         if (r.device.name == deviceName &&
-            ((r.device.state.toString()) != BluetoothDeviceState.connected.toString() ||
-                r.device.state.toString() != BluetoothDeviceState.connecting.toString())) {
+            ((r.device.state.toString()) !=
+                    BluetoothDeviceState.connected.toString() ||
+                r.device.state.toString() !=
+                    BluetoothDeviceState.connecting.toString())) {
           // Device found: TODO: Async
           loggerNoStack.i('Found device "$deviceName" in scan.');
           foundDevice = true;
@@ -148,7 +153,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   }
 
   @override
-  Future<String?> readStringCharacteristic(String serviceUuid, String characteristicUuid) async {
+  Future<String?> readStringCharacteristic(
+      String serviceUuid, String characteristicUuid) async {
     Completer<String> _completer = Completer();
 
     if (bleBlocked) {
@@ -166,7 +172,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
         bleBlocked = true;
         List<int> value = await characteristicMap[characteristicUuid].read();
         bleBlocked = false;
-        debugPrint('Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
+        debugPrint(
+            'Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
         _completer.complete(String.fromCharCodes(value));
         return _completer.future;
       } catch (e) {
@@ -180,7 +187,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   }
 
   @override
-  Future<List<int>?> readRawCharacteristic(String serviceUuid, String characteristicUuid) async {
+  Future<List<int>?> readRawCharacteristic(
+      String serviceUuid, String characteristicUuid) async {
     Completer<List<int>> _completer = Completer();
 
     if (bleBlocked) {
@@ -199,7 +207,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
           List<int> value = await characteristicMap[characteristicUuid].read();
           bleBlocked = false;
 
-          debugPrint('Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
+          debugPrint(
+              'Characteristic reading took ${DateTime.now().difference(start).inMilliseconds}ms.');
 
           _completer.complete(value);
         } catch (e) {
@@ -217,7 +226,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
   }
 
   @override
-  Future<bool> writeRawCharacteristic(String serviceUuid, String characteristicUuid, List<int> data) async {
+  Future<bool> writeRawCharacteristic(
+      String serviceUuid, String characteristicUuid, List<int> data) async {
     // TODO: Service not needed!
 
     if (bleBlocked == true) {
@@ -225,14 +235,16 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
       return false;
     }
 
-    await Future.delayed(Duration(milliseconds: waitTimeWrite)); // TODO: Needed?
+    await Future.delayed(
+        Duration(milliseconds: waitTimeWrite)); // TODO: Needed?
     final start = DateTime.now();
     if (characteristicMap.containsKey(characteristicUuid)) {
       try {
         bleBlocked = true;
         await characteristicMap[characteristicUuid].write(data);
         bleBlocked = false;
-        debugPrint('Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
+        debugPrint(
+            'Characteristic writing took ${DateTime.now().difference(start).inMilliseconds}ms.');
         return true;
       } catch (e) {
         logger.e(e);
@@ -256,7 +268,8 @@ class BluetoothDeviceServiceImpl extends BluetoothDeviceService {
 
     for (var service in services) {
       for (var characteristic in service.characteristics) {
-        debugPrint('Service: ${service.uuid} Characteristics: ${characteristic.uuid}');
+        debugPrint(
+            'Service: ${service.uuid} Characteristics: ${characteristic.uuid}');
         characteristicMap[characteristic.uuid.toString()] = characteristic;
       }
     }

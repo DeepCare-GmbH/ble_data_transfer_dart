@@ -8,6 +8,7 @@
 import 'dart:core' as $core;
 import 'dart:convert' as $convert;
 import 'dart:typed_data' as $typed_data;
+
 @$core.Deprecated('Use screenSaverDescriptor instead')
 const ScreenSaver$json = const {
   '1': 'ScreenSaver',
@@ -18,7 +19,13 @@ const ScreenSaver$json = const {
     const {'1': 'movement', '3': 4, '4': 1, '5': 8, '10': 'movement'},
     const {'1': 'ergonomic', '3': 5, '4': 1, '5': 8, '10': 'ergonomic'},
     const {'1': 'aok', '3': 6, '4': 1, '5': 8, '10': 'aok'},
-    const {'1': 'backgroundImage', '3': 7, '4': 1, '5': 9, '10': 'backgroundImage'},
+    const {
+      '1': 'backgroundImage',
+      '3': 7,
+      '4': 1,
+      '5': 9,
+      '10': 'backgroundImage'
+    },
     const {'1': 'workingTime', '3': 8, '4': 1, '5': 8, '10': 'workingTime'},
     const {'1': 'buzzer', '3': 9, '4': 1, '5': 8, '10': 'buzzer'},
     const {'1': 'water', '3': 10, '4': 1, '5': 8, '10': 'water'},
@@ -28,4 +35,5 @@ const ScreenSaver$json = const {
 };
 
 /// Descriptor for `ScreenSaver`. Decode as a `google.protobuf.DescriptorProto`.
-final $typed_data.Uint8List screenSaverDescriptor = $convert.base64Decode('CgtTY3JlZW5TYXZlchISCgRkYXRlGAEgASgIUgRkYXRlEhIKBHRpbWUYAiABKAhSBHRpbWUSHgoKYmFja2dyb3VuZBgDIAEoCFIKYmFja2dyb3VuZBIaCghtb3ZlbWVudBgEIAEoCFIIbW92ZW1lbnQSHAoJZXJnb25vbWljGAUgASgIUgllcmdvbm9taWMSEAoDYW9rGAYgASgIUgNhb2sSKAoPYmFja2dyb3VuZEltYWdlGAcgASgJUg9iYWNrZ3JvdW5kSW1hZ2USIAoLd29ya2luZ1RpbWUYCCABKAhSC3dvcmtpbmdUaW1lEhYKBmJ1enplchgJIAEoCFIGYnV6emVyEhQKBXdhdGVyGAogASgIUgV3YXRlchIcCgl3YXRlckdvYWwYCyABKAJSCXdhdGVyR29hbBIaCgh1c2VybmFtZRgMIAEoCVIIdXNlcm5hbWU=');
+final $typed_data.Uint8List screenSaverDescriptor = $convert.base64Decode(
+    'CgtTY3JlZW5TYXZlchISCgRkYXRlGAEgASgIUgRkYXRlEhIKBHRpbWUYAiABKAhSBHRpbWUSHgoKYmFja2dyb3VuZBgDIAEoCFIKYmFja2dyb3VuZBIaCghtb3ZlbWVudBgEIAEoCFIIbW92ZW1lbnQSHAoJZXJnb25vbWljGAUgASgIUgllcmdvbm9taWMSEAoDYW9rGAYgASgIUgNhb2sSKAoPYmFja2dyb3VuZEltYWdlGAcgASgJUg9iYWNrZ3JvdW5kSW1hZ2USIAoLd29ya2luZ1RpbWUYCCABKAhSC3dvcmtpbmdUaW1lEhYKBmJ1enplchgJIAEoCFIGYnV6emVyEhQKBXdhdGVyGAogASgIUgV3YXRlchIcCgl3YXRlckdvYWwYCyABKAJSCXdhdGVyR29hbBIaCgh1c2VybmFtZRgMIAEoCVIIdXNlcm5hbWU=');

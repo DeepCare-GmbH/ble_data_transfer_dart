@@ -1,3 +1,7 @@
+## 0.1.4
+
+Extended file transfer.
+
 ## 0.1.3
 
 - Fix chunk size.

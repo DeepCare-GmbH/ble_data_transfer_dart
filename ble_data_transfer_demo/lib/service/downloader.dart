@@ -7,7 +7,8 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
-Stream<double> downloadFile({required String url, required String filename}) async* {
+Stream<double> downloadFile(
+    {required String url, required String filename}) async* {
   var httpClient = http.Client();
   var request = http.Request('GET', Uri.parse(url));
   var response = httpClient.send(request);
@@ -49,7 +50,8 @@ Stream<double> downloadFile({required String url, required String filename}) asy
         final duration = (DateTime.now().difference(start)).inMilliseconds;
         debugPrint('Download took ${f.format(duration / 1000)}s');
         debugPrint('Size: ${f.format(downloaded / 1024.0 / 1024)} MB');
-        debugPrint('Speed: ${f.format(downloaded / 1024.0 / 1024 / duration * 1000)} MB/s');
+        debugPrint(
+            'Speed: ${f.format(downloaded / 1024.0 / 1024 / duration * 1000)} MB/s');
         finished = true;
         return;
       }).catchError((e) {

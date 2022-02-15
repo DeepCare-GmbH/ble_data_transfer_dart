@@ -71,7 +71,8 @@ class _HomeState extends State<Home> {
   }
 
   void sendShort() {
-    final messages = dm.sender.sendString(1, 'The quick brown fox jumps over the lazy dog.');
+    final messages =
+        dm.sender.sendString(1, 'The quick brown fox jumps over the lazy dog.');
 
     for (final m in messages) {
       dm.sendData(BleUuid.data, m);
@@ -104,7 +105,8 @@ class _HomeState extends State<Home> {
 
     // TODO: Should use the following link instead of hard coding:
     // const fileToDownload = 'https://www.deepcare.work/version/update/master';
-    const fileToDownload = 'https://storage.googleapis.com/ble_updates/update_0.8.7.50.7z';
+    const fileToDownload =
+        'https://storage.googleapis.com/ble_updates/update_0.8.7.50.7z';
 
     final stream = downloadFile(
       url: fileToDownload,

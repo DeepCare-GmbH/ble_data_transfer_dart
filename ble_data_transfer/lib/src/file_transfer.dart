@@ -21,7 +21,8 @@ class FileTransfer {
     if (currentChunk < fileData.length) {
       _currentChunk = currentChunk;
     } else {
-      throw Exception('Chunk $currentChunk is out of file chunk size (${fileData.length})!');
+      throw Exception(
+          'Chunk $currentChunk is out of file chunk size (${fileData.length})!');
     }
   }
 
@@ -33,7 +34,8 @@ class FileTransfer {
 
     final fileBuffer = await readFile(path);
     _fileHash = Helper.hashListFull(fileBuffer);
-    final fileChunks = Helper.splitBuffer(fileBuffer, chunkSize * 1024); // 100kB
+    final fileChunks =
+        Helper.splitBuffer(fileBuffer, chunkSize * 1024); // 100kB
 
     for (final c in fileChunks) {
       fileData.add(sender.sendBuffer(1, c));

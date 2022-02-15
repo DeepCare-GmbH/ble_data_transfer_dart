@@ -1,6 +1,14 @@
 import 'package:ble_data_transfer_demo/generated/stats.pb.dart';
 
-enum DeviceStatisticsMode { unknown, normal, observer, workout, backpain, standing, water }
+enum DeviceStatisticsMode {
+  unknown,
+  normal,
+  observer,
+  workout,
+  backpain,
+  standing,
+  water
+}
 
 class DeviceStatistics {
   double standTime = 0.000000001;
