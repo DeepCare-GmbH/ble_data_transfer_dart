@@ -55,7 +55,7 @@ class StartTransferRequest extends $pb.GeneratedMessage {
             ? ''
             : 'direction',
         $pb.PbFieldType.OE,
-        defaultOrMaker: StartTransferRequest_Direction.MAIN,
+        defaultOrMaker: StartTransferRequest_Direction.PHONE_TO_DEVICE,
         valueOf: StartTransferRequest_Direction.valueOf,
         enumValues: StartTransferRequest_Direction.values)
     ..hasRequiredFields = false;

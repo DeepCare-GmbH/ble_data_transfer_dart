@@ -15,21 +15,45 @@ class Target extends $pb.ProtobufEnum {
       const $core.bool.fromEnvironment('protobuf.omit_enum_names')
           ? ''
           : 'UNKNOWN');
-  static const Target UPDATE = Target._(
+  static const Target DOCKER_IMAGE = Target._(
       1,
       const $core.bool.fromEnvironment('protobuf.omit_enum_names')
           ? ''
-          : 'UPDATE');
-  static const Target DATA = Target._(
+          : 'DOCKER_IMAGE');
+  static const Target USER_BACKGROUND_IMAGE = Target._(
       2,
       const $core.bool.fromEnvironment('protobuf.omit_enum_names')
           ? ''
+          : 'USER_BACKGROUND_IMAGE');
+  static const Target DATA = Target._(
+      3,
+      const $core.bool.fromEnvironment('protobuf.omit_enum_names')
+          ? ''
           : 'DATA');
+  static const Target BASH_SCRIPT = Target._(
+      4,
+      const $core.bool.fromEnvironment('protobuf.omit_enum_names')
+          ? ''
+          : 'BASH_SCRIPT');
+  static const Target ANSIBLE_SCRIPT = Target._(
+      5,
+      const $core.bool.fromEnvironment('protobuf.omit_enum_names')
+          ? ''
+          : 'ANSIBLE_SCRIPT');
+  static const Target PLAIN_FILE = Target._(
+      6,
+      const $core.bool.fromEnvironment('protobuf.omit_enum_names')
+          ? ''
+          : 'PLAIN_FILE');
 
   static const $core.List<Target> values = <Target>[
     UNKNOWN,
-    UPDATE,
+    DOCKER_IMAGE,
+    USER_BACKGROUND_IMAGE,
     DATA,
+    BASH_SCRIPT,
+    ANSIBLE_SCRIPT,
+    PLAIN_FILE,
   ];
 
   static final $core.Map<$core.int, Target> _byValue =
@@ -40,23 +64,23 @@ class Target extends $pb.ProtobufEnum {
 }
 
 class StartTransferRequest_Direction extends $pb.ProtobufEnum {
-  static const StartTransferRequest_Direction MAIN =
+  static const StartTransferRequest_Direction PHONE_TO_DEVICE =
       StartTransferRequest_Direction._(
           0,
           const $core.bool.fromEnvironment('protobuf.omit_enum_names')
               ? ''
-              : 'MAIN');
-  static const StartTransferRequest_Direction SECOND =
+              : 'PHONE_TO_DEVICE');
+  static const StartTransferRequest_Direction DEVICE_TO_PHONE =
       StartTransferRequest_Direction._(
           1,
           const $core.bool.fromEnvironment('protobuf.omit_enum_names')
               ? ''
-              : 'SECOND');
+              : 'DEVICE_TO_PHONE');
 
   static const $core.List<StartTransferRequest_Direction> values =
       <StartTransferRequest_Direction>[
-    MAIN,
-    SECOND,
+    PHONE_TO_DEVICE,
+    DEVICE_TO_PHONE,
   ];
 
   static final $core.Map<$core.int, StartTransferRequest_Direction> _byValue =

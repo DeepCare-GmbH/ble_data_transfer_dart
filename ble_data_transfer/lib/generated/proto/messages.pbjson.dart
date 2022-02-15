@@ -14,14 +14,18 @@ const Target$json = const {
   '1': 'Target',
   '2': const [
     const {'1': 'UNKNOWN', '2': 0},
-    const {'1': 'UPDATE', '2': 1},
-    const {'1': 'DATA', '2': 2},
+    const {'1': 'DOCKER_IMAGE', '2': 1},
+    const {'1': 'USER_BACKGROUND_IMAGE', '2': 2},
+    const {'1': 'DATA', '2': 3},
+    const {'1': 'BASH_SCRIPT', '2': 4},
+    const {'1': 'ANSIBLE_SCRIPT', '2': 5},
+    const {'1': 'PLAIN_FILE', '2': 6},
   ],
 };
 
 /// Descriptor for `Target`. Decode as a `google.protobuf.EnumDescriptorProto`.
 final $typed_data.Uint8List targetDescriptor = $convert.base64Decode(
-    'CgZUYXJnZXQSCwoHVU5LTk9XThAAEgoKBlVQREFURRABEggKBERBVEEQAg==');
+    'CgZUYXJnZXQSCwoHVU5LTk9XThAAEhAKDERPQ0tFUl9JTUFHRRABEhkKFVVTRVJfQkFDS0dST1VORF9JTUFHRRACEggKBERBVEEQAxIPCgtCQVNIX1NDUklQVBAEEhIKDkFOU0lCTEVfU0NSSVBUEAUSDgoKUExBSU5fRklMRRAG');
 @$core.Deprecated('Use startTransferRequestDescriptor instead')
 const StartTransferRequest$json = const {
   '1': 'StartTransferRequest',
@@ -53,14 +57,14 @@ const StartTransferRequest$json = const {
 const StartTransferRequest_Direction$json = const {
   '1': 'Direction',
   '2': const [
-    const {'1': 'MAIN', '2': 0},
-    const {'1': 'SECOND', '2': 1},
+    const {'1': 'PHONE_TO_DEVICE', '2': 0},
+    const {'1': 'DEVICE_TO_PHONE', '2': 1},
   ],
 };
 
 /// Descriptor for `StartTransferRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List startTransferRequestDescriptor = $convert.base64Decode(
-    'ChRTdGFydFRyYW5zZmVyUmVxdWVzdBIaCghmaWxlbmFtZRgBIAEoCVIIZmlsZW5hbWUSEgoEaGFzaBgCIAEoDFIEaGFzaBIWCgZjaHVua3MYAyABKAVSBmNodW5rcxIxCgZ0YXJnZXQYBCABKA4yGS5kZWVwY2FyZS5tZXNzYWdlcy5UYXJnZXRSBnRhcmdldBJPCglkaXJlY3Rpb24YBSABKA4yMS5kZWVwY2FyZS5tZXNzYWdlcy5TdGFydFRyYW5zZmVyUmVxdWVzdC5EaXJlY3Rpb25SCWRpcmVjdGlvbiIhCglEaXJlY3Rpb24SCAoETUFJThAAEgoKBlNFQ09ORBAB');
+    'ChRTdGFydFRyYW5zZmVyUmVxdWVzdBIaCghmaWxlbmFtZRgBIAEoCVIIZmlsZW5hbWUSEgoEaGFzaBgCIAEoDFIEaGFzaBIWCgZjaHVua3MYAyABKAVSBmNodW5rcxIxCgZ0YXJnZXQYBCABKA4yGS5kZWVwY2FyZS5tZXNzYWdlcy5UYXJnZXRSBnRhcmdldBJPCglkaXJlY3Rpb24YBSABKA4yMS5kZWVwY2FyZS5tZXNzYWdlcy5TdGFydFRyYW5zZmVyUmVxdWVzdC5EaXJlY3Rpb25SCWRpcmVjdGlvbiI1CglEaXJlY3Rpb24SEwoPUEhPTkVfVE9fREVWSUNFEAASEwoPREVWSUNFX1RPX1BIT05FEAE=');
 @$core.Deprecated('Use startTransferResponseDescriptor instead')
 const StartTransferResponse$json = const {
   '1': 'StartTransferResponse',

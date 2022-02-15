@@ -7,9 +7,14 @@ michael.katzenberger@deep-care.de
 
 ## Preparation
 
-Format the generated Protobuf files:
+### Format the generated Protobuf files
 ``` bash
 dart format .
+```
+
+### Run tests
+``` bash
+flutter test
 ```
 
 Update Version.

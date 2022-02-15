@@ -1,3 +1,7 @@
+## 0.1.5
+
+Better wording for data transmission.
+
 ## 0.1.4
 
 Extended file transfer.

@@ -50,8 +50,8 @@ class FileTransfer {
     start.chunks = fileData.length;
 
     // Enum via <Message>_<Enum>:
-    start.target = Target.PLAIN_FILE;
-    start.direction = StartTransferRequest_Direction.MAIN;
+    start.target = Target.ANSIBLE_SCRIPT;
+    start.direction = StartTransferRequest_Direction.PHONE_TO_DEVICE;
 
     return start;
   }
