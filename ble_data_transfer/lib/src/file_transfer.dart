@@ -21,7 +21,7 @@ class FileTransfer {
     if (currentChunk < fileData.length) {
       _currentChunk = currentChunk;
     } else {
-      throw Exception('Chunk out of range!');
+      throw Exception('Chunk $currentChunk is out of file chunk size (${fileData.length})!');
     }
   }
 
