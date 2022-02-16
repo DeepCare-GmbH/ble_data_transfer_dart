@@ -1,3 +1,7 @@
+## 0.1.6
+
+Added timestamp protobuf.
+
 ## 0.1.5
 
 Better wording for data transmission.
