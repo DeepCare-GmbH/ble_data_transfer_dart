@@ -36,8 +36,8 @@ Always send by Master, used for both directions.
 
 | Content        | Bytes | Description                 |
 |----------------|-------|-----------------------------|
-| Address        |     4 | Address to indetify service |
-| Hash           |     2 | Shortend MD5 hash           |
+| Address        |     4 | Address to identify service |
+| Hash           |     2 | Shortened MD5 hash          |
 | Current Chunk  |     4 |                             |
 | Overall Chunks |     4 |                             |
 | Data           |     x |                             |
@@ -83,7 +83,7 @@ Always send by Master, used for both directions.
 | Content      | Bytes | Description                           |
 |--------------|-------|---------------------------------------|
 | Filename     |     x | String array variable length. 100 max |
-| Hash         |     8 | Shortend hash                         |
+| Hash         |     8 | Shortened hash                         |
 | Chunks       |     4 |                                       |
 | Target       |     1 | Enum with target/type                 |
 | Direction    |     1 | Master --> Slave / Slave --> Master   |
@@ -101,7 +101,7 @@ Always send by Slave on a start transfer request.
 
 | Content      | Bytes | Description                           |
 |--------------|-------|---------------------------------------|
-| Hash         |     8 | Shortend hash                         |
+| Hash         |     8 | Shortened hash                        |
 | Filename     |     x | String array variable length. 100 max |
 | Chunks       |     4 |                                       |
 | Target       |     1 | Enum with target/type                 |
@@ -121,19 +121,19 @@ MTU 185
 Hash:           16bit      
 Chunk number:   32bit
 
-| Content      | Bytes | Description   |
-|--------------|-------|---------------|
-| Hash         |     2 | Shortend hash |
-| Chunk number |     4 |               |
-| Data         |   179 |               |
+| Content      | Bytes | Description    |
+|--------------|-------|----------------|
+| Hash         |     2 | Shortened hash |
+| Chunk number |     4 |                |
+| Data         |   179 |                |
 
 ### Continue
 
-| Content      | Bytes | Description   |
-|--------------|-------|---------------|
-| Hash         |     8 | Shortend hash |
-| Chunk number |     4 |               |
-| Enum         |     1 |               |
+| Content      | Bytes | Description    |
+|--------------|-------|----------------|
+| Hash         |     8 | Shortened hash |
+| Chunk number |     4 |                |
+| Enum         |     1 |                |
 
 
 ### Request
