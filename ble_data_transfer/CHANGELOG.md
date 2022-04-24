@@ -1,3 +1,7 @@
+## 0.1.7
+
+Paging in directory message.
+
 ## 0.1.6
 
 Added timestamp protobuf.
